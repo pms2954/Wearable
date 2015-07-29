@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.wearable.view.WatchViewStub
+<android.support.wearable.view.BoxInsetLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/watch_view_stub"
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:rectLayout="@layout/rect_activity_my"
-    app:roundLayout="@layout/round_activity_my"
-    tools:context=".MyActivity"
-    tools:deviceIds="wear">
-</android.support.wearable.view.WatchViewStub>
+    android:layout_width="match_parent">
+
+    <FrameLayout
+        android:id="@+id/frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_box="left|top|right">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/sensorInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/waiting"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:textSize="10sp"/>
+        </ScrollView>
+    </FrameLayout>
+
+</android.support.wearable.view.BoxInsetLayout>

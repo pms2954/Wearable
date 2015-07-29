@@ -18,17 +18,17 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <service
-            android:name=".MyService"
+            android:name="com.keti.wearable.googleSevice.WearableMessageListenerService"
             android:enabled="true"
             android:exported="true" >
             <intent-filter>
                 <action android:name="com.google.android.gms.wearable.BIND_LISTENER" />
+                <action android:name="android.intent.action.send"/>
             </intent-filter>
         </service>
 
