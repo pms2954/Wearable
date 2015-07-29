@@ -1,6 +1,7 @@
 package com.keti.wearable.googleService;
 
 import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -55,6 +56,7 @@ public class WearableMessageListenerService extends WearableListenerService {
             Intent messageIntent = new Intent();
             messageIntent.setAction(Intent.ACTION_SEND);
             messageIntent.putExtra(GGSERV.INTENT_PATH, msg);
+            LocalBroadcastManager.getInstance(this).sendBroadcast(messageIntent);
             Log.d(TAG, "onMessageRecevied : Message send with braodcasting ->" + msg);
         }
     }

@@ -6,9 +6,11 @@ import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -84,8 +86,8 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     public void onStart() {
-        super.onStart();
         Log.e(TAG, "++ ON START ++");
+        super.onStart();
 
         // If BT is not on , the request that it be enabled.
         // setupChat() will then be called during onActivityResult
@@ -114,7 +116,6 @@ public class MainActivity extends ActionBarActivity {
                 mBluetoothService.start();
             }
         }
-
     }
 
     @Override
@@ -223,7 +224,7 @@ public class MainActivity extends ActionBarActivity {
      */
     public void initWearableConn(){
 
-        //GoogleApuClient Listener
+        //GoogleApiClient Listener
         GoogleApiClient.OnConnectionFailedListener wearableConnectionFailedListener =
                 new GoogleApiClient.OnConnectionFailedListener() {
 
@@ -261,6 +262,9 @@ public class MainActivity extends ActionBarActivity {
                 Log.d(TAG, "onReceivce : broadcast Message received -> " + message);
             }
         };
+
+        IntentFilter msgFilter = new IntentFilter(Intent.ACTION_SEND);
+        LocalBroadcastManager.getInstance(this).registerReceiver(mLocalMessageReceiver, msgFilter);
 
     }
 
@@ -404,7 +408,7 @@ public class MainActivity extends ActionBarActivity {
                 break;
             case GGSERV.TYPE :
                 Log.d(TAG, "sendMessage : googleService type ");
-                sndMessage(message, GGSERV.TYPE);
+                mWearableConn.sendMessage(GGSERV.MESSAGE_PATH, message);
                 break;
             default :
                 Log.d(TAG, "sendMessage : none type");
